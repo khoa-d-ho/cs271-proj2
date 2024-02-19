@@ -1,8 +1,10 @@
-This is Project 2 from CS 271 with Dr. Truex.
+This is Project 2 from CS 271 with Dr. Truex
 
-By Khoa Ho and Hoang Ngo.
+By Khoa Ho and Hoang Ngo
 
 Feb 19, 2024
+
+
 
 
 
