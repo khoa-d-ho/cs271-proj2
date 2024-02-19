@@ -15,9 +15,9 @@ private:
     int capacity;
     int heapSize;
 
-    int parent(int i) { return (i - 1) / 2; }
-    int left(int i) { return (2 * i + 1); }
-    int right(int i) { return (2 * i + 2); }
+    int parent(int i) { return i / 2; }
+    int left(int i) { return 2 * i; }
+    int right(int i) { return 2 * i + 1; }
 
 public:
 
@@ -35,6 +35,11 @@ public:
         void            heapify             (int i);    
         void            build_min_heap      (void);
         void            sort                (T* outArray);
+
+        void            set                 ();
+        void            
+
+
 
 };
 // #include "set.cpp"
