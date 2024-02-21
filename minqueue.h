@@ -25,7 +25,7 @@ public:
                         MinQueue            (T* array, int size);
                         ~MinQueue           (void);
                         
-	    string          to_string           (void) const;
+	    // string          to_string           (void) const;
 
         void            insert              (const T& value);
         T               min                 (void) const;
@@ -37,10 +37,8 @@ public:
         void            sort                (T* outArray);
 
         void            set                 ();
-        void            
-
-
+        string 		    to_string		    (void) const; 
 
 };
-// #include "set.cpp"
+
 #endif 

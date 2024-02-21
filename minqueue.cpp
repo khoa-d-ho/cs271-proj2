@@ -12,7 +12,7 @@
 using namespace std;
 
 template <class T>
-		MinQueue<T>::Minqueue		( void )
+		MinQueue<T>::MinQueue		( void )
 {
 	heap = new T[capacity];
 }
@@ -51,7 +51,7 @@ void MinQueue<T>::insert(const T& value) {
 }
 
 template <class T>
-T MinQueue<T>::min() const {
+T MinQueue<T>::min                  ( void ) const {
     if (isEmpty()) {
         cout << "MinQueue is empty." << endl;
         return T();
