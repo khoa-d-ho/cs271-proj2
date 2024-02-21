@@ -247,7 +247,7 @@ string  MinQueue<T>::to_string          ( void ) const
     }
 
     return ss.str(); // Convert the stringstream to a string and return it    
-}
+}...
 
 //========================================================
 // set
