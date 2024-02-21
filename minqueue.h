@@ -25,7 +25,7 @@ public:
                         MinQueue            (T* A, int n);
                         ~MinQueue           (void);
                         
-	    string          to_string           (void) const;
+	    // string          to_string           (void) const;
 
         void            insert              (const T& value);
         T               min                 (void) const;
@@ -36,10 +36,15 @@ public:
         void            build_min_heap      (void);
         void            sort                (T* A);
 
+<<<<<<< HEAD
+        void            set                 ();
+        string 		    to_string		    (void) const; 
+=======
         void            set                 (int i, T value);
         void            allocate            (int n);
 
 
+>>>>>>> 114d83307ea16c5ae4f6702c8334c5e23331887a
 
 };
 
