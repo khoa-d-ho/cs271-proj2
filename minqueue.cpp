@@ -1,3 +1,11 @@
+//========================================================
+// Khoa Ho, Hoang Ngo
+// minqueue.cpp
+// February 2024
+// This file contains the class methods for the
+// MinQueue Priority Queue using heaps.
+//========================================================
+
 #include "minqueue.h"
 #include <string>
 #include <sstream>
