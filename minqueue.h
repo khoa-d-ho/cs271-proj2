@@ -25,7 +25,7 @@ public:
                         MinQueue            (T* A, int n);
                         ~MinQueue           (void);
                         
-	string          to_string           (void) const;
+	    string          to_string           (void) const;
 
         void            insert              (const T& value);
         T               min                 (void) const;
