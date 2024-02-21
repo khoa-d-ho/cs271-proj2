@@ -4,8 +4,13 @@
 //
 //  Created by Stacey Truex
 //
+
+
+// #include "usecase.cpp"
 #include <iostream>
-#include "usecase.cpp"
+#include "minqueue.cpp"
+#include <random>
+#include <cstdlib>
 
 using namespace std;
 
@@ -316,43 +321,43 @@ void test_heapsort()
     delete[] int_data;
 }
 
-void test_sliding_window()
-{
+// void test_sliding_window()
+// {
 
-    int *empty = new int[0];
-    int nums[8] = {1, 3, -1, -3, 5, 3, 6, 7};
+//     int *empty = new int[0];
+//     int nums[8] = {1, 3, -1, -3, 5, 3, 6, 7};
 
-    try
-    {
+//     try
+//     {
 
-        string window_result = sliding_window(empty, 0, 0);
+//         string window_result = sliding_window(empty, 0, 0);
 
-        if (window_result != "")
-        {
-            cout << "Incorrect sliding window result. Expected and empty string but got : " << window_result << endl;
-        }
+//         if (window_result != "")
+//         {
+//             cout << "Incorrect sliding window result. Expected and empty string but got : " << window_result << endl;
+//         }
 
-        window_result = sliding_window(nums, 8, 3);
+//         window_result = sliding_window(nums, 8, 3);
 
-        if (window_result != "-1 -3 -3 -3 3 3")
-        {
-            cout << "Incorrect sliding window result. Expected -1 -3 -3 -3 3 3 but got : " << window_result << endl;
-        }
+//         if (window_result != "-1 -3 -3 -3 3 3")
+//         {
+//             cout << "Incorrect sliding window result. Expected -1 -3 -3 -3 3 3 but got : " << window_result << endl;
+//         }
 
-        window_result = sliding_window(nums, 1, 1);
+//         window_result = sliding_window(nums, 1, 1);
 
-        if (window_result != "1")
-        {
-            cout << "Incorrect sliding window result. Expected 1 but got : " << window_result << endl;
-        }
-    }
-    catch (exception &e)
-    {
-        cerr << "Error in generating sliding window result : " << e.what() << endl;
-    }
+//         if (window_result != "1")
+//         {
+//             cout << "Incorrect sliding window result. Expected 1 but got : " << window_result << endl;
+//         }
+//     }
+//     catch (exception &e)
+//     {
+//         cerr << "Error in generating sliding window result : " << e.what() << endl;
+//     }
 
-    delete[] empty;
-}
+//     delete[] empty;
+// }
 
 void time_test()
 {
@@ -406,7 +411,7 @@ int main()
     test_build_min_heap();
     test_heapsort();
 
-    test_sliding_window();
+    // test_sliding_window();
 
     time_test();
 

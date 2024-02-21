@@ -6,9 +6,12 @@
 // MinQueue Priority Queue using heaps.
 //========================================================
 
+#include <iostream>
 #include "minqueue.h"
 #include <string>
-#include <sstream>
+#include <chrono>
+#include <sstream> 
+#include <algorithm>
 using namespace std;
 
 //========================================================
@@ -22,7 +25,7 @@ using namespace std;
 template <class T>
 		MinQueue<T>::MinQueue		( void )
 {
-    capacity = 100; // initial capacity
+    capacity = 1; // initial capacity
     heapSize = 0; // initial heap size, which is an empty heap
 	heap = new T[capacity]; // allocate the heap to the initial capacity
 }
@@ -47,7 +50,7 @@ template <class T>
     {
         heap[i] = A[i]; // copy elements from the array to the heap
     }
-    build_min_heap(); // Reorganize the copied elements to a min-heap
+    build_heap(); // Reorganize the copied elements to a min-heap
 }
 
 //==============================================================
@@ -92,16 +95,15 @@ void    MinQueue<T>::insert         ( const T& value )
 // Return Value: The smallest element in the min-priority queue.
 //========================================================
 template <class T>
-T       MinQueue<T>::min            ( void ) const 
-{
-    if (heapSize == 0) 
-    {
+T       MinQueue<T>::min               ( void )   const {
+    if (heapSize == 0) {
         cout << "MinQueue is empty." << endl;
-        return T();
-
-    return heap[0]; // smallest element is at the root of the heap.
+        return T(); // Return a default-constructed object of type T
     }
+    // If heapSize is not 0, return the smallest element
+    return heap[0]; // Smallest element is at the root of the heap.
 }
+
 
 //========================================================
 // extractMin
@@ -122,7 +124,7 @@ T       MinQueue<T>::extract_min     ( void )
     heap[0] = heap[heapSize-1]; // Move the last element of the heap to the root
     heapSize--; // Decrease the heap size by 1
 
-    heapify(0); // heapify to maintain the min-heap property.
+    min_heapify(0); // heapify to maintain the min-heap property.
 
     return min; // return the minimum element that was removed form the heap
 }
@@ -156,6 +158,7 @@ void    MinQueue<T>::decrease_key        ( int i, T newValue )
         swap(heap[i], heap[parent(i)]);
         i = parent(i);
     }
+
 }
 
 //========================================================
@@ -165,7 +168,7 @@ void    MinQueue<T>::decrease_key        ( int i, T newValue )
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::heapify            ( int i ) 
+void    MinQueue<T>::min_heapify            ( int i ) 
 {
     int l = left(i); // index of the left child
     int r = right(i); // index of the right child
@@ -183,12 +186,12 @@ void    MinQueue<T>::heapify            ( int i )
     if (smallest != i) // if the smallest is not at the root
     {
         swap(heap[i], heap[smallest]); // swap the root with the smallest child
-        heapify(smallest); // continue heapify
+        min_heapify(smallest); // continue heapify
     }
 }
 
 //========================================================
-// build_min_heap
+// build_heap
 // Constructs a min-heap from an unsorted array. This method iterates over all non-leaf nodes
 // of the heap and applies heapify to each one in a bottom-up manner, ensuring the entire
 // array satisfies the min-heap property by the end.
@@ -196,19 +199,19 @@ void    MinQueue<T>::heapify            ( int i )
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::build_min_heap     ( void ) 
+void    MinQueue<T>::build_heap     ( void ) 
 {
     for (int i = (heapSize / 2) - 1; i >= 0; i--) // start form the last non-leaf node and work to the root.
     {
-        heapify(i);
+        min_heapify(i);
     }
 }
 
 //========================================================
 // sort
-// Sorts the elements of the min-heap into ascending order and stores the result in outArray.
-// Parameters: T* outArray - Pointer to the array where sorted elements will be stored.
-// Preconditions: outArray is assumed to have enough space to store all elements of the heap.
+// Sorts the elements of the min-heap into ascending order and stores the result in an array A.
+// Parameters: T* A - Pointer to the array where sorted elements will be stored.
+// Preconditions: A is assumed to have enough space to store all elements of the heap.
 // Return Value: None
 //========================================================
 
@@ -217,7 +220,7 @@ void    MinQueue<T>::sort               (T* A)
 {
     int size = heapSize; // get the original heapSize because the extract_min function will change the heapSize
 
-    for (int i = 0; i < size, i++)
+    for (int i = 0; i < size; i++)
     {
         A[i] = extract_min(); // adding value in array in ascending order.
     }
@@ -273,7 +276,7 @@ void    MinQueue<T>::set                ( int i, T value )
         }
 
         else {
-            heapify(i); // Adjust the subtree at i to maintain the min-heap property.
+            min_heapify(i); // Adjust the subtree at i to maintain the min-heap property.
         }
     }
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <algorithm>
 using namespace std;
 
 #ifndef MINQUEUE_H
@@ -32,14 +33,25 @@ public:
         T               extract_min         (void);
         void            decrease_key        (int i, T newValue);
 
-        void            heapify             (int i);    
-        void            build_min_heap      (void);
+        void            min_heapify         (int i);    
+        void            build_heap          (void);
         void            sort                (T* A);
 
         void            set                 (int i, T value);
         void            allocate            (int n);
 
 
+friend ostream & operator << ( ostream &os, const MinQueue<T> A )
+    {
+        os << "[ ";
+        for ( int i = 0; i < A.heapSize; i++ )
+            os << A.heap[i] << ", ";
+        if ( A.heap != 0 )
+            os << A.heap[A.heapSize-1] << " ]";
+        else
+            os << " ]";
+        return os;
+    }
 };
 
 #endif 
