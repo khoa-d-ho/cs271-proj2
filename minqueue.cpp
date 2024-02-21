@@ -38,14 +38,14 @@ template <class T>
 // Return Value: None
 //========================================================
 template <class T>
-        MinQueue<T>::MinQueue       ( T* array, int size ) 
+        MinQueue<T>::MinQueue       ( T* A, int n ) 
 {
-    capacity = size * 3; // initial capacity to 3 times the size in case the heap growth
-    heapSize = size; // initial the heapSizw to the size of the array
+    capacity = n * 2; // initial capacity to 2 times the size in case the heap growth
+    heapSize = n; // initial the heapSizw to the size of the array
     heap = new T[capacity]; // allocate the heap with the capacity
-    for (int i = 0; i < size; i++) 
+    for (int i = 0; i < n; i++) 
     {
-        heap[i] = array[i]; // copy elements from the array to the heap
+        heap[i] = A[i]; // copy elements from the array to the heap
     }
     build_min_heap(); // Reorganize the copied elements to a min-heap
 }
@@ -137,7 +137,7 @@ T       MinQueue<T>::extract_min     ( void )
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::decreaseKey        ( int i, T newValue ) 
+void    MinQueue<T>::decrease_key        ( int i, T newValue ) 
 {
     if (i < 0 || i >= heapSize) 
     {
@@ -213,15 +213,98 @@ void    MinQueue<T>::build_min_heap     ( void )
 //========================================================
 
 template <class T>
-void    MinQueue<T>::sort               (T* array) 
+void    MinQueue<T>::sort               (T* A) 
 {
     int size = heapSize; // get the original heapSize because the extract_min function will change the heapSize
 
     for (int i = 0; i < size, i++)
     {
-        array[i] = extract_min(); // adding value in array in ascending order.
+        A[i] = extract_min(); // adding value in array in ascending order.
     }
 }
+
+//========================================================
+// to_string
+// Returns a string representation of the min-heap.
+// Parameters: None
+// Preconditions: None
+// Return Value: A string representation of the heap.
+//========================================================
+template <class T>
+string  MinQueue<T>::to_string          ( void ) const 
+{
+    stringstream ss; 
+
+    for (int i = 0; i < heapSize; ++i) {
+        ss << heap[i];
+        if (i < heapSize - 1) 
+        { 
+            ss << " "; // if it is not the last element, add space
+        }
+    }
+
+    return ss.str(); // Convert the stringstream to a string and return it    
+}
+
+//========================================================
+// set
+// Directly sets the value of the element at index i in the heap to a new value.
+// Parameters:
+// int i - The index of the element to modify.
+// T value - The new value for the element at index i.
+// Preconditions: The index i must be within the bounds of the heap.
+// Return Value: None
+//========================================================
+template <class T>
+void    MinQueue<T>::set                ( int i, T value ) 
+{
+    if (i >= 0 && i < heapSize) 
+    {
+        // Directly set the value at index i
+        heap[i] = value;
+
+        if (i != 0 && heap[i] < heap[parent(i)]) 
+        {
+            while (i != 0 && heap[parent(i)] > heap[i]) 
+            {
+                swap(heap[i], heap[parent(i)]);
+                i = parent(i);
+            }
+        }
+
+        else {
+            heapify(i); // Adjust the subtree at i to maintain the min-heap property.
+        }
+    }
+}
+
+//========================================================
+// allocate
+// Resizes the heap's storage array to a new capacity. 
+// Parameters: int n - The new capacity for the heap array.
+// Return Value: None
+//========================================================
+template <class T>
+void    MinQueue<T>::allocate           ( int n ) 
+{
+    if (n <= capacity) 
+    {
+        return;
+    }
+
+    T* newHeap = new T[n]; // Allocate a new array with the new capacity
+
+    for (int i = 0; i < heapSize; ++i) // Copy existing elements to the new array
+    {
+        newHeap[i] = heap[i];
+    }
+
+    delete[] heap; // Delete the old array and update the pointer
+    heap = newHeap;
+
+    capacity = n; // Update the capacity to the new value
+}
+
 
 
 

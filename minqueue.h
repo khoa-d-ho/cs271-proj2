@@ -22,7 +22,7 @@ private:
 public:
 
                         MinQueue            (void);
-                        MinQueue            (T* array, int size);
+                        MinQueue            (T* A, int n);
                         ~MinQueue           (void);
                         
 	    string          to_string           (void) const;
@@ -30,11 +30,11 @@ public:
         void            insert              (const T& value);
         T               min                 (void) const;
         T               extract_min         (void);
-        void            decrease_key        (int i, T value);
+        void            decrease_key        (int i, T newValue);
 
         void            heapify             (int i);    
         void            build_min_heap      (void);
-        void            sort                (T* array);
+        void            sort                (T* A);
 
         void            set                 (int i, T value);
         void            allocate            (int n);
