@@ -28,16 +28,16 @@ public:
                         
 	    string          to_string           (void) const;
 
-        void            insert              (const T& value);
+        void            insert              (const T& x);
         T               min                 (void) const;
         T               extract_min         (void);
-        void            decrease_key        (int i, T newValue);
+        void            decrease_key        (int i, T k);
 
         void            min_heapify         (int i);    
         void            build_heap          (void);
         void            sort                (T* A);
 
-        void            set                 (int i, T value);
+        void            set                 (int i, T val);
         void            allocate            (int n);
 
 
@@ -54,4 +54,5 @@ friend ostream & operator << ( ostream &os, const MinQueue<T> A )
     }
 };
 
+#include "minqueue.cpp"
 #endif 

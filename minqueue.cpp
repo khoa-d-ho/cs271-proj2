@@ -68,18 +68,18 @@ template <class T>
 //========================================================
 // insert
 // Inserts a new element into the min-priority queue.
-// Parameters: const T& value - The value to insert into the queue.
+// Parameters: const T& x - The value to insert into the queue.
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::insert         ( const T& value ) 
+void    MinQueue<T>::insert         ( const T& x ) 
 {
     if (heapSize == capacity) 
     {
         allocate(capacity * 2);
     }
     int i = heapSize++;
-    heap[i] = value;
+    heap[i] = x;
     
     while (i != 0 && heap[parent(i)] > heap[i]) 
     {
@@ -97,7 +97,7 @@ void    MinQueue<T>::insert         ( const T& value )
 template <class T>
 T       MinQueue<T>::min               ( void )   const {
     if (heapSize == 0) {
-        cout << "MinQueue is empty." << endl;
+        cout << "MinQueue is empty 1." << endl;
         return T(); // Return a default-constructed object of type T
     }
     // If heapSize is not 0, return the smallest element
@@ -116,7 +116,7 @@ T       MinQueue<T>::extract_min     ( void )
 {
     if (heapSize == 0) 
     {
-        cout << "MinQueue is empty." << endl;
+        cout << "MinQueue is empty 2." << endl;
         return T();
     }
 
@@ -131,27 +131,27 @@ T       MinQueue<T>::extract_min     ( void )
 
 //========================================================
 // decreaseKey
-// Decreases the value of an element at index i in the heap to newValue and
+// Decreases the value of an element at index i in the heap to k and
 // maintained the min-heap property.
 // Parameters:
 // int i - The index of the element to decrease.
-// T newValue - The new value for the element.
+// T k - The new value for the element.
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::decrease_key        ( int i, T newValue ) 
+void    MinQueue<T>::decrease_key        ( int i, T k ) 
 {
     if (i < 0 || i >= heapSize) 
     {
         return; // if the index is out of bound, return.
     }
 
-    if (newValue >= heap[i]) // check if the new value is actually less than the current value at index i.
+    if (k >= heap[i]) // check if the new value is actually less than the current value at index i.
     {
         return; // if the new value is not less, return.
     }
 
-    heap[i] = newValue; // replace the newValue with the current value at index i.
+    heap[i] = k; // replace the k with the current value at index i.
 
     while (i != 0 && heap[parent(i)] > heap[i]) // maintaining the heap property.
     {
@@ -174,12 +174,12 @@ void    MinQueue<T>::min_heapify            ( int i )
     int r = right(i); // index of the right child
     int smallest = i; // initialize smallest as root
 
-    if (l <= heapSize && heap[l] < heap[smallest]) // if the left child is smaller than i
+    if (l < heapSize && heap[l] < heap[smallest]) // if the left child is smaller than i
     {
         smallest = l; // make the left child the smallest
     }
 
-    if (r <= heapSize && heap[r] < heap[smallest]) // if the right child is smaller than i
+    if (r < heapSize && heap[r] < heap[smallest]) // if the right child is smaller than i
     {
         smallest = r; // make the right child the smallest
     }
@@ -201,7 +201,7 @@ void    MinQueue<T>::min_heapify            ( int i )
 template <class T>
 void    MinQueue<T>::build_heap     ( void ) 
 {
-    for (int i = (heapSize / 2) - 1; i >= 0; i--) // start form the last non-leaf node and work to the root.
+    for (int i = (heapSize / 2); i >= 0; i--) // start form the last non-leaf node and work to the root.
     {
         min_heapify(i);
     }
@@ -238,7 +238,7 @@ string  MinQueue<T>::to_string          ( void ) const
 {
     stringstream ss; 
 
-    for (int i = 0; i < heapSize; ++i) {
+    for (int i = 0; i < heapSize ; ++i) {
         ss << heap[i];
         if (i < heapSize - 1) 
         { 
@@ -247,37 +247,42 @@ string  MinQueue<T>::to_string          ( void ) const
     }
 
     return ss.str(); // Convert the stringstream to a string and return it    
-}...
+}
+
+
+// template <class T>
+// string MinQueue<T>::to_string( void ) const
+// {
+//     stringstream result;
+//     for(int i = 0; i <= heapSize; i++)
+//     {
+//         result << heap[i] << " ";
+//     }
+
+//     return result.str();
+// }
 
 //========================================================
 // set
 // Directly sets the value of the element at index i in the heap to a new value.
 // Parameters:
 // int i - The index of the element to modify.
-// T value - The new value for the element at index i.
+// T val - The new value for the element at index i.
 // Preconditions: The index i must be within the bounds of the heap.
 // Return Value: None
 //========================================================
 template <class T>
-void    MinQueue<T>::set                ( int i, T value ) 
+void    MinQueue<T>::set                ( int i, T val ) 
 {
+    if (i == heapSize && i < capacity) 
+    {
+        heapSize++;
+    }
+
     if (i >= 0 && i < heapSize) 
     {
         // Directly set the value at index i
-        heap[i] = value;
-
-        if (i != 0 && heap[i] < heap[parent(i)]) 
-        {
-            while (i != 0 && heap[parent(i)] > heap[i]) 
-            {
-                swap(heap[i], heap[parent(i)]);
-                i = parent(i);
-            }
-        }
-
-        else {
-            min_heapify(i); // Adjust the subtree at i to maintain the min-heap property.
-        }
+        heap[i] = val;
     }
 }
 
